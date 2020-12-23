@@ -1,7 +1,8 @@
 class Vhs < ActiveRecord::Base
     after_initialize :add_serial_number
-
-
+        belongs_to :movie
+        has_many :rentals
+        has_many :clients, through: :rentals 
     private
 
     # generates serial number based on the title
