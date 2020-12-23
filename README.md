@@ -79,7 +79,7 @@ Build the following functionality:
 ### `Rental`
 **READ**
 - `Rental#due_date` - returns a date one week from when the record was created
-- `Rental.past_due_date` - returns a list of all the rentals past due date, currently rented or rented in the past
+- `Rental.past_due_date` - returns a list of all the rentals past due date, currently rented or rented in the 
 
 ### `Client`
 **CREATE**

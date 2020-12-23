@@ -15,4 +15,6 @@ class Rental < ActiveRecord::Base
         self.all.select{|rental| rental.past_due_date}
     end
 
+    
+
 end
