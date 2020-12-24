@@ -29,7 +29,6 @@ class Client < ActiveRecord::Base
     end 
 
     def returned_one(vhs)
-       
         my_vhs = self.my_rentals.select{|rental| rental.vhs.id == vhs.id}.first
         # my_vhs.toggle(:current).save
         my_vhs.update(current: false)
@@ -39,14 +38,33 @@ class Client < ActiveRecord::Base
     def active_rental
         self.my_rentals.select{|rental| rental.current == true}
     end
+
+    def past_rentals
+    self.my_rentals.select{|rental| rental.current == false}
+    end
     
     def last_return 
-      #binding.pry 
-      #change = self.active_rental.update_all{|rental| self.rentals.current = false}
-      self.rentals.update_all(current: false)
-      #change.save
-      self.destroy
+        #binding.pry 
+        #change = self.active_rental.update_all{|rental| self.rentals.current = false}
+        self.rentals.update_all(current: false)
+        #change.save
+        self.destroy
     end
+
+    def self.most_active
+        binding.pry
+        self.all.sort_by{|client| client.past_rentals.count}.first(5)
+        
+    end
+
+    def favorite_genre
+        genre_count = {}
+        self.rentals.each do |rental|
+            puts rental.genre
+        end
+        binding.pry
+    end
+
 end
 
 # - `Client.paid_most` - returns an instance who has spent most money at the store; one rental is $5,35 upfront (bonus: additional $12 charge for every late return — do not count those that have not yet been returned) 
